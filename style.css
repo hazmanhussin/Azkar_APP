@@ -313,7 +313,7 @@ body {
   line-height: 1.7;
   margin: 24px 0 12px 0;
   color: #f3f6fa;
-  font-family: 'Scheherazade New', 'Amiri', 'Lateef', serif;
+  font-family: 'Amiri', 'Scheherazade New', 'Lateef', serif;
   font-weight: 400;
 }
 
@@ -369,7 +369,7 @@ body {
   background: rgba(24,28,32,0.85);
   border-radius: 18px;
   box-shadow: 0 2px 16px #00000022;
-  padding: 10px 0;
+  padding: 10px 0 max(16px, env(safe-area-inset-bottom));
 }
 # Responsive fixes for small screens
 @media (max-width: 600px) {
@@ -402,7 +402,7 @@ body {
         width: calc(100vw - 10px);
         max-width: 100vw;
         border-radius: 12px;
-        padding: 6px 0;
+        padding: 6px 0 max(16px, env(safe-area-inset-bottom));
       }
       #resetBtn {
         top: 8px;

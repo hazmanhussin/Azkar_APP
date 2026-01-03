@@ -1,3 +1,32 @@
+let showTranslation = true;
+
+function toggleTranslation() {
+  showTranslation = !showTranslation;
+  render();
+}
+// --- Zikr Index Modal Logic ---
+function openIndexModal() {
+  const modal = document.getElementById('indexModal');
+  const list = document.getElementById('zikrIndexList');
+  list.innerHTML = '';
+  azkar.forEach((item, i) => {
+    const li = document.createElement('li');
+    li.className = 'index-list-item';
+    li.innerHTML = `<span class='index-title'>${item.title ? item.title : `Zikr ${i + 1}`}</span><span class='index-page'>${i + 1}</span>`;
+    li.onclick = function() {
+      index = i;
+      count = 0;
+      render();
+      closeIndexModal();
+    };
+    list.appendChild(li);
+  });
+  modal.style.display = 'flex';
+}
+
+function closeIndexModal() {
+  document.getElementById('indexModal').style.display = 'none';
+}
 const azkar = [
   // --- Page 0 (original first page content) ---
   {
@@ -8,14 +37,14 @@ const azkar = [
     target: 1
   },
   {
-    title: "",
+    title: "TASYAHUD",
     reference: "",
     text: "أَشْهَدُ أَنْ لَا إِلٰهَ إِلَّا اللَّهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ",
     translation: "Aku bersaksi bahawa tidak ada sembahan yang berhak disembah selain Allah semata, dan aku bersaksi bahawa Muhammad adalah hamba dan utusan-Nya.",
     target: 1
   },
   {
-    title: "",
+    title: "BISMILLAH",
     reference: "",
     text: "بِسْمِ اللَّهِ، اللَّهُ أَكْبَرُ",
     translation: "Dengan nama Allah, Allah Maha Besar.",
@@ -89,7 +118,7 @@ const azkar = [
 {
   title: "ZIKIR TAUHID",
   reference: "",
-  text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ بِأَنِّي أَشْهَدُ أَنَّكَ أَنْتَ اللَّهُ\nلَا إِلَهَ إِلَّا أَنْتَ\nأَنْتَ الْأَحَدُ الصَّمَدُ\nلَمْ يَلِدْ وَلَمْ يُولَدْ\nوَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ",
+  text: "اللَّهُمَّ إِنِّي أَسْأَلُكَ بِأَنِّي\nأَشْهَدُ أَنَّكَ أَنْتَ اللَّهُ\nلَا إِلَهَ إِلَّا أَنْتَ\nأَنْتَ الْأَحَدُ الصَّمَدُ\nلَمْ يَلِدْ وَلَمْ يُولَدْ\nوَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ",
   translation: "Wahai Allah, Sesungguhnya aku memohon kepada-Mu, dalam keadaan aku meletakkan sebuah kesaksian. Sesungguhnya, Engkau benar-benar Allah. Tidak ada Tuhan kecuali Engkau Ya Allah. Engkaulah Tuhan Yang Maha Esa, Yang Maha Menolong. Tidak beranak dan tidak diberanakkan. Dan tidak ada sekutu pun bagimu.",
   target: 3
 },
@@ -625,11 +654,25 @@ function render() {
   const z = azkar[index];
   zikrTitle.textContent = z.title || "";
   zikrReference.textContent = z.reference || "";
+  // Quranic verse numbering logic
   zikrText.innerHTML = z.text.split("\n").map(line => `<p>${line}</p>`).join("");
-  zikrTranslation.innerHTML = z.translation.split("\n").map(line => `<p>${line}</p>`).join("");
+  // Show/hide translation
+  const translationBlock = document.querySelector('.zikr-translation');
+  const toggleBtn = document.getElementById('toggleTranslationBtn');
+  if (showTranslation) {
+    zikrTranslation.innerHTML = z.translation.split("\n").map(line => `<p>${line}</p>`).join("");
+    if (translationBlock) translationBlock.style.display = '';
+    if (toggleBtn) toggleBtn.textContent = 'Hide Translation';
+  } else {
+    zikrTranslation.innerHTML = '';
+    if (translationBlock) translationBlock.style.display = 'none';
+    if (toggleBtn) toggleBtn.textContent = 'Show Translation';
+  }
 
-  // Update TAP button text with counter / target
-  tapBtn.textContent = `${count} / ${z.target}`;
+  // Update counter display as single line
+  if (document.getElementById("counterDisplay")) {
+    document.getElementById("counterDisplay").textContent = `${count}/${z.target}`;
+  }
 }
 
 function tap() {

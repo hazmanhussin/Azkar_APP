@@ -7,15 +7,33 @@
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#000000">
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <header>My Azkar</header>
+  <header>
+    <div class="header-flex">
+      <button id="indexBtn" class="header-btn" onclick="openIndexModal()" title="Zikr Index">
+        <span aria-label="Index" style="font-size:1.4em;">&#9776;</span>
+      </button>
+      <span class="header-title">My Azkar</span>
+      <button id="resetBtn" class="header-btn" onclick="resetZikr()" title="Reset">
+        <span aria-label="Reset" style="font-size:1.3em;">&#x21bb;</span>
+      </button>
+    </div>
+  </header>
 
   <main id="app">
 
-    <!-- Reset button top-right -->
-    <button id="resetBtn" onclick="resetZikr()">Reset</button>
+
+    <!-- Zikr Index Modal -->
+    <div id="indexModal" class="modal" style="display:none;">
+      <div class="modal-content">
+        <span class="close" onclick="closeIndexModal()">&times;</span>
+        <h2>Zikr Index</h2>
+        <ul id="zikrIndexList"></ul>
+      </div>
+    </div>
 
     <!-- Top header -->
     <div class="top-header">
@@ -30,15 +48,23 @@
     </div>
 
     <!-- Counter -->
-    <!-- <div class="counter">
-      <div id="count">0</div>
-      <div id="target"></div>
-    </div> -->
+    <div class="counter">
+      <span id="counterDisplay">0/1</span>
+    </div>
+
+    <!-- Translation toggle -->
+    <div class="translation-toggle">
+      <button id="toggleTranslationBtn" onclick="toggleTranslation()">Hide Translation</button>
+    </div>
 
     <!-- Buttons -->
     <div class="buttons">
-      <button id="prevBtn" onclick="prevZikr()">&#8592; Previous</button>
-      <button id="tapBtn" onclick="tap()">Tap / Next &#8594;</button>
+      <button id="prevBtn" class="nav-btn" onclick="prevZikr()" title="Previous">
+        <span aria-label="Previous" style="font-size:1.4em;">&#8592;</span>
+      </button>
+      <button id="tapBtn" class="nav-btn" onclick="tap()" title="Next">
+        <span aria-label="Next" style="font-size:1.4em;">&#8594;</span>
+      </button>
     </div>
 
   </main>

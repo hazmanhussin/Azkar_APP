@@ -673,6 +673,15 @@ function render() {
   if (document.getElementById("counterDisplay")) {
     document.getElementById("counterDisplay").textContent = `${count}/${z.target}`;
   }
+
+  // Reset scroll position of main scrollable area (if exists)
+  const scrollable = document.querySelector('.scrollable');
+  if (scrollable) {
+    scrollable.scrollTop = 0;
+  } else {
+    // fallback: scroll main content or body to top
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }
 }
 
 function tap() {

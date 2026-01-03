@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>My Azkar</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#000000">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>My Azkar</header>
+
+  <main id="app">
+
+    <!-- Reset button top-right -->
+    <button id="resetBtn" onclick="resetZikr()">Reset</button>
+
+    <!-- Top header -->
+    <div class="top-header">
+      <div class="zikr-title" id="zikrTitle"></div>
+      <div class="zikr-reference" id="zikrReference"></div>
+    </div>
+
+    <!-- Scrollable block for Arabic + translation -->
+    <div class="scrollable">
+      <div class="zikr-text" id="zikrText"></div>
+      <div class="zikr-translation" id="zikrTranslation"></div>
+    </div>
+
+    <!-- Counter -->
+    <!-- <div class="counter">
+      <div id="count">0</div>
+      <div id="target"></div>
+    </div> -->
+
+    <!-- Buttons -->
+    <div class="buttons">
+      <button id="prevBtn" onclick="prevZikr()">&#8592; Previous</button>
+      <button id="tapBtn" onclick="tap()">Tap / Next &#8594;</button>
+    </div>
+
+  </main>
+
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+  </script>
+</body>
+</html>
